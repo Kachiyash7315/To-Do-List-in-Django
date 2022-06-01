@@ -1,0 +1,30 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="border p-3">
+        <form method="POST">
+            {% csrf_token %}
+            {{form | crispy}}
+            <hr>
+            <input class="btn btn-success btn-block" type="submit" value="Submit">
+        </form>
+    </div>
+<hr>
+{% for x in todos %}
+<div class="border p-3 mb-3">
+    <small>{{ x.date }}</small>
+    <div class="row">
+        <div class="col-md-8">
+            <p>{{ x.content }}</p>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-info btn-sm" href="{% url 'todo-update' x.id %}">Edit</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'todo-delete' x.id %}">Delete</a>
+        </div>
+    </div>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}
